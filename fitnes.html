@@ -1,0 +1,440 @@
+﻿<!DOCTYPE html>
+<html lang="mk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fitnes Cyberpunk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/3d-demo.css">
+  <script src="assets/3d-demo.js" defer></script>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --surface: #121212;
+      --accent: #ccff00;
+      --accent-soft: rgba(204, 255, 0, 0.15);
+      --text: #ffffff;
+      --muted: #b8b8b8;
+      --card: rgba(18, 18, 18, 0.92);
+      --shadow: 0 40px 120px rgba(0,0,0,.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: radial-gradient(circle at top left, rgba(204,255,0,.08), transparent 18%),
+                  radial-gradient(circle at bottom right, rgba(212,175,55,.06), transparent 16%),
+                  linear-gradient(180deg, #10131a 0%, #0b0c10 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.08)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient></defs><rect width="800" height="800" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4 12"/><rect width="800" height="800" fill="url(%23g)" opacity="0.35"/></svg>');
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding-bottom: 26px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .brand {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    nav a {
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color .2s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(420px, 1fr);
+      gap: 36px;
+      align-items: center;
+      padding: 60px 0 34px;
+    }
+
+    .hero-copy {
+      max-width: 640px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 42px;
+      height: 1px;
+      margin-right: 12px;
+      background: var(--accent);
+      opacity: .8;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(3rem, 4.5vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 22px;
+      color: #fff;
+    }
+
+    .hero-copy p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 32px;
+      max-width: 560px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 170px;
+      padding: 16px 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #080900;
+      box-shadow: 0 24px 60px rgba(204,255,0,.14);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      border-color: rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+
+    .btn:hover,
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .panel {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      border-radius: 30px;
+      overflow: hidden;
+      min-height: 560px;
+    }
+
+    .panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(204,255,0,.16), transparent 20%);
+      pointer-events: none;
+    }
+
+    .visual-wrap {
+      position: relative;
+      height: 100%;
+      padding: 32px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .visual-card {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 4 / 5;
+      border-radius: 32px;
+      background: linear-gradient(180deg, rgba(20,20,20,.94), rgba(8,8,8,.98));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05), 0 24px 80px rgba(0,0,0,.55);
+      overflow: hidden;
+    }
+
+    .visual-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(204,255,0,.14), transparent 24%),
+                  radial-gradient(circle at 80% 80%, rgba(255,255,255,.07), transparent 18%);
+      pointer-events: none;
+    }
+
+    .figure-shape {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.08), transparent 45%);
+      clip-path: polygon(10% 100%, 18% 46%, 28% 28%, 46% 18%, 62% 14%, 78% 22%, 82% 42%, 76% 56%, 66% 70%, 58% 85%, 40% 96%);
+      filter: drop-shadow(0 0 18px rgba(204,255,0,.35));
+      transform: translateY(8%) scale(1.02);
+      opacity: .82;
+    }
+
+    .figure-accent {
+      position: absolute;
+      inset: 12% 10% 10% 10%;
+      background: repeating-linear-gradient(125deg, rgba(255,255,255,.12) 0, rgba(255,255,255,0) 8px, rgba(255,255,255,.04) 16px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .small-blocks {
+      display: grid;
+      gap: 16px;
+      padding: 28px;
+    }
+
+    .block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: rgba(0,0,0,.48);
+      border: 1px solid rgba(255,255,255,.06);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(204,255,0,.12);
+      color: var(--accent);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 80px;
+    }
+
+    .pricing-panel {
+      padding: 32px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 24px 60px rgba(0,0,0,.4);
+    }
+
+    .pricing-panel h2,
+    .pricing-panel p {
+      margin-bottom: 18px;
+    }
+
+    .pricing-panel h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.02em;
+    }
+
+    .price-box {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 16px 22px;
+      border-radius: 18px;
+      background: var(--accent);
+      color: #080900;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .features {
+      display: grid;
+      gap: 16px;
+    }
+
+    .feature {
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      display: grid;
+      gap: 10px;
+    }
+
+    .feature strong {
+      display: block;
+      color: var(--text);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .pricing-note {
+      color: rgba(255,255,255,.65);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: rgba(255,255,255,.6);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; }
+      .pricing { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .page { padding: 22px 16px 60px; }
+      header { flex-direction: column; align-items: flex-start; }
+      .hero { gap: 28px; }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .btn, .btn-secondary { width: 100%; }
+      .panel { min-height: 520px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="backgroundScene" class="background-canvas" aria-hidden="true"></canvas>
+  <div class="page">
+    <header>
+      <div class="brand">NEON STRONG</div>
+      <nav>
+        <a href="#why">Зошто</a>
+        <a href="#цена">Ценовник</a>
+        <a href="#features">Услуги</a>
+        <a href="#contact">Контакт</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">cyberpunk gym</div>
+        <h1>Тренинг за иднината: Силата, брзиот пулс и неонската естетика.</h1>
+        <p>Внесете енергија на улиците во вашиот фитнес режим. Темна, моќна платформа за тренинг со акценти шарени во лимон-зелено, силни визуелни блокови и современ урбан стил.</p>
+        <div class="hero-actions">
+          <a href="#цена" class="btn">Започни сега</a>
+          <a href="#contact" class="btn-secondary">Погледни програм</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="visual-wrap">
+          <div class="visual-card">
+            <div class="figure-shape"></div>
+            <div class="figure-accent"></div>
+          </div>
+        </div>
+        <div class="small-blocks">
+          <div class="block"><span>Тренинг</span><span class="tag">HIIT</span></div>
+          <div class="block"><span>Фокус</span><span class="tag">Сила</span></div>
+          <div class="block"><span>Режим</span><span class="tag">Ден/Нощ</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="цена" class="pricing">
+      <div class="pricing-panel">
+        <h2>ЦЕНОВНИК</h2>
+        <div class="price-box">99<span style="font-size:1rem; margin-left:4px;">ден/мес</span></div>
+        <div class="features">
+          <div class="feature"><strong>Персонален план</strong>Уникатна програма базирана на твојата сила и цел.</div>
+          <div class="feature"><strong>Групни часови</strong>Целодневни сесии со неонска мотивација и енергичен ритам.</div>
+          <div class="feature"><strong>Online следење</strong>Водство и анализа на напредок преку дигитални инструменти.</div>
+        </div>
+        <p class="pricing-note">Клучот е во контрастот: темни основи, јасни неонски акценти и големи блокови за информации. Сите детали треба да се истакнат без да го нарушат мрачниот, футуристички впечаток.</p>
+      </div>
+      <div class="pricing-panel" id="features">
+        <h2>Силни визуелни слоеви</h2>
+        <p>Поставете суптилна текстура во позадина и дозволете леснотијата на читањето да остане непречена. Нагласете важни информации со неонски креирани блокови и чисти бели текстови.</p>
+        <div class="features">
+          <div class="feature"><strong>Интензивни акции</strong>Насловите, копчињата и важните метрики треба да бидат видливи од прва.</div>
+          <div class="feature"><strong>Графички контраст</strong>Темна палета + флуоресцентни детали ја креира истиот cyberpunk ефект.</div>
+          <div class="feature"><strong>Модерна типографија</strong>Montserrat за наслови, Roboto за телото на текстот - чисто и моќно.</div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <span>© 2026 Neon Strong Gym</span>
+      <span>Контакт: info@neonstrong.mk</span>
+    </footer>
+  </div>
+</body>
+</html>

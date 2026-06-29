@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Mei | Локал Меи - Skopje Coffee Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+            url('Ice Coffee.jpg');
+            background-size: cover; background-position: center;
+        }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .menu-card { transition: all 0.3s ease; border-left: 3px solid transparent; }
+        .menu-card:hover { border-left: 3px solid #7c2d12; background: #fdfaf9; padding-left: 1rem; }
+        .about-video-bg {
+            position: relative;
+            overflow: hidden;
+            min-height: 620px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.70)),
+                        url('Ice Coffee.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .about-video-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.70));
+            z-index: 1;
+        }
+        .about-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-content span,
+        .about-content h3,
+        .about-content p,
+        .about-content .grid p {
+            text-shadow: 0 20px 40px rgba(0,0,0,0.35);
+        }
+        .menu-item-img { height: 180px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 1rem; }
+    </style>
+    <link rel="stylesheet" href="assets/3d-demo.css">
+    <script src="assets/3d-demo.js" defer></script>
+</head>
+<body class="bg-stone-50 text-stone-800">
+    <canvas id="backgroundScene" class="background-canvas" aria-hidden="true"></canvas>    
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="serif text-2xl font-bold text-orange-900">Local Mei</h1>
+            <div class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-widest text-stone-600">
+                <a href="#about" class="hover:text-orange-900 transition">За нас</a>
+                <a href="#menu" class="hover:text-orange-900 transition">Мени</a>
+                <a href="#reviews" class="hover:text-orange-900 transition">Рецензии</a>
+                <a href="#location" class="hover:text-orange-900 transition">Посети</a>
+            </div>
+            <a href="tel:+38970340715" class="bg-orange-900 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-orange-800 transition">Повикај</a>
+        </div>
+    </nav>
+    <header class="hero-bg h-screen flex items-center justify-center text-center text-white px-6">
+        <div class="max-w-3xl">
+            <h2 class="serif text-5xl md:text-7xl mb-6">Вашето секојдневно бегство</h2>
+            <p class="text-xl mb-8 italic opacity-90">Квалитетно кафе и пријатна атмосфера во срцето на Скопје</p>
+            <a href="#menu" class="bg-white text-stone-900 px-10 py-4 font-bold hover:bg-orange-100 transition duration-300 rounded-sm">ВИДИ МЕНИ</a>
+        </div>
+    </header>
+    <section id="about" class="py-24 about-video-bg">
+        <div class="about-content max-w-4xl mx-auto px-6 text-center fade-in">
+            <span class="text-white font-semibold tracking-widest uppercase text-sm">Добредојдовте</span>
+            <h3 class="serif text-4xl mt-4 mb-8 text-white drop-shadow-lg">Повеќе од само кафуле</h3>
+            <p class="text-lg text-white mb-6 leading-relaxed drop-shadow-lg">
+                Локал Меи е модерно кафуле во Скопје каде секоја шолја е внимателно подготвена. 
+                Ние ги набавуваме зрната од локални печкари и служиме свежо варено кафе, заедно со разновидни пецива и сендвичи.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 text-center">
+                <div><p class="text-3xl font-bold text-white drop-shadow-lg">100%</p><p class="text-xs uppercase tracking-tighter text-white drop-shadow-lg">Арабика</p></div>
+                <div><p class="text-3xl font-bold text-white drop-shadow-lg">WiFi</p><p class="text-xs uppercase tracking-tighter text-white drop-shadow-lg">Бесплатен</p></div>
+                <div><p class="text-3xl font-bold text-white drop-shadow-lg">07-22</p><p class="text-xs uppercase tracking-tighter text-white drop-shadow-lg">Работно време</p></div>
+                <div><p class="text-3xl font-bold text-white drop-shadow-lg">Eco</p><p class="text-xs uppercase tracking-tighter text-white drop-shadow-lg">Friendly</p></div>
+            </div>
+        </div>
+    </section>
+    <section id="menu" class="py-24 bg-stone-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="serif text-4xl mb-16 text-center">Нашето Мени</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <div class="fade-in">
+                    <h4 class="serif text-2xl text-orange-900 border-b border-orange-200 pb-4 mb-6 italic">Кафе & Топли пијалоци</h4>
+                    <div class="space-y-6">
+                        <div class="menu-card">
+                            <img src="espresso.jpg" alt="Еспресо" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Еспресо</span><span>150 ден</span></div>
+                            <p class="text-sm text-stone-500">Класично италијанско еспресо.</p>
+                        </div>
+                        <div class="menu-card">
+                            <img src="Капучино.jpg" alt="Капучино" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Капучино</span><span>180 ден</span></div>
+                            <p class="text-sm text-stone-500">Со густа млечна пена.</p>
+                        </div>
+                        <div class="menu-card">
+                            <img src="Карамел Лате.jpg" alt="Карамел Лате" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Карамел Лате</span><span>230 ден</span></div>
+                            <p class="text-sm text-stone-500">Еспресо, млеко и сируп од карамела.</p>
+                        </div>
+                        <div class="menu-card">
+                            <img src="Топло чоколадо.jpg" alt="Топло чоколадо" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Топло чоколадо</span><span>200 ден</span></div>
+                            <p class="text-sm text-stone-500">Густо и кремасто темно чоколадо.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <h4 class="serif text-2xl text-orange-900 border-b border-orange-200 pb-4 mb-6 italic">Храна & Појадок</h4>
+                    <div class="space-y-6">
+                        <div class="menu-card">
+                            <img src="Свеж Кроасан.jpg" alt="Свеж Кроасан" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Свеж Кроасан</span><span>120 ден</span></div>
+                            <p class="text-sm text-stone-500">Печен секое утро, со путер.</p>
+                        </div>
+                        <div class="menu-card">
+                            <img src="Меи Сендвич.jpg" alt="Меи Сендвич" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Меи Сендвич</span><span>320 ден</span></div>
+                            <p class="text-sm text-stone-500">Пршута, моцарела и песто сос.</p>
+                        </div>
+                        <div class="menu-card">
+                            <img src="Авокадо Тост.jpg" alt="Авокадо Тост" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Авокадо Тост</span><span>280 ден</span></div>
+                            <p class="text-sm text-stone-500">На интегрален леб со чили снегулки.</p>
+                        </div>
+                        <div class="menu-card">
+                            <img src="Чоколадна торта.jpg" alt="Чоколадна торта" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Чоколадна торта</span><span>250 ден</span></div>
+                            <p class="text-sm text-stone-500">Домашен десерт со 70% какао.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <h4 class="serif text-2xl text-orange-900 border-b border-orange-200 pb-4 mb-6 italic">Студени пијалоци</h4>
+                    <div class="space-y-6">
+                        <div class="menu-card">
+                            <img src="Лимонада со нане.jpg" alt="Лимонада со нане" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Лимонада со нане</span><span>180 ден</span></div>
+                            <p class="text-sm text-stone-500">Свежо цеден лимон и свежо нане.</p>
+                        </div>
+                        <div class="menu-card">
+                            <img src="ладно кафе.jpg" alt="Ладно кафе" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Ладно кафе</span><span>190 ден</span></div>
+                            <p class="text-sm text-stone-500">Освежително ладно кафе со млеко.</p>
+                        </div>
+                        <div class="menu-card">
+                            <img src="Цеден портокал.jpg" alt="Цеден портокал" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Цеден портокал</span><span>220 ден</span></div>
+                            <p class="text-sm text-stone-500">100% природен витамин Ц.</p>
+                        </div>
+                        <div class="menu-card">
+                            <img src="Смути Боровинка.jpg" alt="Смути Бoрoвинка" class="menu-item-img w-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                            <div class="flex justify-between font-bold"><span>Смути Бoрoвинка</span><span>260 ден</span></div>
+                            <p class="text-sm text-stone-500">Шумско овошје, банана и бадемово млеко.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="reviews" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="serif text-4xl mb-12 text-center">Што велат нашите гости?</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100">
+                    <div class="text-orange-900 font-bold mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-stone-600 italic mb-6">„Уживам во секој вкус и атмосферата е одлична. Идеално место за работа или за краток одмор.“</p>
+                    <p class="font-semibold">Јана М.</p>
+                </div>
+                <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100">
+                    <div class="text-orange-900 font-bold mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-stone-600 italic mb-6">„Кафето е совршено, а услужливоста е на многу високо ниво. Препорачувам за секој љубител на добро кафе.“</p>
+                    <p class="font-semibold">Мартин С.</p>
+                </div>
+                <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100">
+                    <div class="text-orange-900 font-bold mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-stone-600 italic mb-6">„Се враќам секој пат за нивната лимонада и топло чоколадо. Идеално место за пријателска средба.“</p>
+                    <p class="font-semibold">Елена П.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="location" class="py-24 bg-stone-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h3 class="serif text-4xl mb-6">Каде се наоѓаме?</h3>
+                    <p class="text-lg text-stone-600 mb-8">
+                        Ул. Тодор Чангов 27, Скопје 1000<br>
+                        Северна Македонија
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="bg-orange-900 text-white p-2 rounded-full text-xs">●</span>
+                            <p>Пон - Пет: 07:00 - 22:00</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <span class="bg-orange-900 text-white p-2 rounded-full text-xs">●</span>
+                            <p>Саб - Нед: 08:00 - 23:00</p>
+                        </div>
+                    </div>
+                    <a href="https://maps.google.com" target="_blank" class="inline-block mt-8 border-b-2 border-orange-900 font-bold pb-1 hover:text-orange-900 transition">Отвори на Мапа &rarr;</a>
+                </div>
+                <div class="h-96 bg-stone-300 rounded-2xl overflow-hidden shadow-2xl fade-in">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2964.123456789!2d21.43!3d41.99!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDU5JzI0LjAiTiAyMcKwMjUnNDguMCJF!5e0!3m2!1sen!2smk!4v1620000000000!5m2!1sen!2smk" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-stone-900 text-stone-400 py-12 text-center border-t border-stone-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="serif text-2xl text-white mb-6">Local Mei</h2>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="hover:text-white transition">Instagram</a>
+                <a href="#" class="hover:text-white transition">Facebook</a>
+                <a href="#" class="hover:text-white transition">TikTok</a>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const lightbox = GLightbox({ selector: '.glightbox' });
+    </script>
+</body>
+</html>

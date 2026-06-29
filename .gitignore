@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database
+agency_business.db
+
+# Build output
+deployed_sites/
+gh_pages_site/
+docs/
+.env
+
+# VS Code
+.vscode/
