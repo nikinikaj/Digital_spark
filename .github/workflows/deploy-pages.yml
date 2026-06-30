@@ -21,12 +21,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        with:
-          token: ${{ secrets.PAGES_PAT || github.token }}
-          enablement: auto
-
       - name: Upload docs artifact
         uses: actions/upload-pages-artifact@v3
         with:
