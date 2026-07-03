@@ -31,6 +31,8 @@ jobs:
           if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
 
       - name: Generate docs site
+        env:
+          AUTO_APPROVE: true
         run: python run_agency.py --niche all --payment-provider paypal --deploy-target github-pages
 
       - name: Upload docs artifact

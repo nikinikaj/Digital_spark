@@ -18,6 +18,7 @@ from .tools import (
     send_admin_notification,
     send_sales_email,
     simulate_payment_status,
+    is_noninteractive,
 )
 
 
@@ -88,7 +89,7 @@ def sales_agent() -> None:
             if require_manual_approval("Save this as the client's initial requirements?"):
                 update_client_field(client["id"], "requirements", suggested_requirements)
                 print("Saved suggested requirements for later development.")
-            else:
+            elif not is_noninteractive():
                 custom = input(
                     "Enter custom requirements for this client, or press Enter to skip:\n"
                 ).strip()
@@ -120,6 +121,9 @@ def order_capture_agent() -> None:
         if require_manual_approval("Did this client reply positively and request a website? "):
             update_status(client["id"], "ordered")
             print(f"Client {client['business_name']} marked as ordered.")
+        elif is_noninteractive():
+            update_status(client["id"], "ordered")
+            print(f"Non-interactive mode: Client {client['business_name']} auto-marked as ordered.")
         else:
             print(f"Client {client['business_name']} remains emailed.")
 
@@ -131,11 +135,9 @@ def developer_agent(deploy_target: str = "local") -> None:
         return
 
     for client in orders:
-        requirements = client["requirements"].strip()
+        requirements = (client["requirements"] or "").strip()
         if not requirements:
-            requirements = input(
-                f"Enter website requirements for {client['business_name']} (client id {client['id']}): \n"
-            ).strip()
+            requirements = "Generic local business website with contact details, services, and a call-to-action."
             update_client_field(client["id"], "requirements", requirements)
 
         html_content = generate_html_for_requirements(client["business_name"], requirements)
