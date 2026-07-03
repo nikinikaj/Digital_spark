@@ -43,7 +43,7 @@ NICHES = {
 
 
 def lead_finder_agent(niche: str) -> List[int]:
-    print(f"🤖 Lead Finder Agent targeting niche: {niche}")
+    print(f"Lead Finder Agent targeting niche: {niche}")
     if niche.lower() == "all":
         samples = [item for niche_list in NICHES.values() for item in niche_list]
     else:
@@ -153,7 +153,7 @@ def developer_agent(deploy_target: str = "local") -> None:
 def quality_and_billing_agent(payment_provider: str = "paypal") -> None:
     built_clients = fetch_clients_by_status("built")
     if built_clients:
-        print("\n🤖 QA & Billing Agent checking built websites...")
+        print("\nQA & Billing Agent checking built websites...")
     for client in built_clients:
         if not client["website_url"]:
             print(f"Client {client['business_name']} has no website URL recorded.")

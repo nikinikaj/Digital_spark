@@ -5,6 +5,18 @@ from .database import fetch_all_clients
 from .config import DOCS_DIR
 
 
+def normalize_website_url(url: str) -> str:
+    if url.startswith("gh_pages_site/"):
+        return url.replace("gh_pages_site/", "")
+    return url
+
+
+def render_website_cell(url: str) -> str:
+    normalized_url = normalize_website_url(url)
+    safe_url = normalized_url.replace('"', '%22')
+    return f'<td><a href="{safe_url}" target="_blank" rel="noopener noreferrer">{normalized_url}</a></td>'
+
+
 def summarize_clients(clients: List[dict]) -> Dict[str, int]:
     summary = {
         "total": len(clients),
@@ -30,7 +42,7 @@ def render_dashboard_page(clients: List[dict]) -> str:
         f"  <td>{client['business_name']}</td>\n"
         f"  <td>{client['email']}</td>\n"
         f"  <td>{client['status']}</td>\n"
-        f"  <td>{client['website_url']}</td>\n"
+        f"  {render_website_cell(client['website_url'])}\n"
         f"  <td>{client['invoice_id']}</td>\n"
         f"  <td>{client['requirements']}</td>\n"
         f"  <td>{client['last_note']}</td>\n"
@@ -103,7 +115,7 @@ def render_status_page(clients: List[dict]) -> str:
         f"  <td>{client['business_name']}</td>\n"
         f"  <td>{client['email']}</td>\n"
         f"  <td>{client['status']}</td>\n"
-        f"  <td>{client['website_url']}</td>\n"
+        f"  {render_website_cell(client['website_url'])}\n"
         f"  <td>{client['invoice_id']}</td>\n"
         f"  <td>{client['requirements']}</td>\n"
         f"  <td>{client['last_note']}</td>\n"

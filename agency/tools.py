@@ -152,7 +152,7 @@ def deploy_basic_website(client_id: int, business_name: str, html_content: str, 
         client_dir = GITHUB_PAGES_DIR / f"client_{client_id}"
         client_dir.mkdir(parents=True, exist_ok=True)
         filename = client_dir / "index.html"
-        deploy_url = f"gh_pages_site/client_{client_id}/index.html"
+        deploy_url = f"client_{client_id}/index.html"
     else:
         filename = DEPLOY_DIR / f"site_client_{client_id}.html"
         deploy_url = str(filename)
