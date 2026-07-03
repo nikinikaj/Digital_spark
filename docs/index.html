@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agency Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 2rem; background: #f9fafc; color: #1f2937; }
+    .hero { padding: 1.5rem; background: #111827; color: white; border-radius: 16px; }
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 1.5rem; }
+    .card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 1rem; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1rem; color: #111827; }
+    .card p { margin: 0; font-size: 2rem; font-weight: 700; color: #111827; }
+    table { width: 100%; border-collapse: collapse; margin-top: 2rem; background: white; }
+    th, td { padding: 0.75rem; border: 1px solid #e5e7eb; text-align: left; }
+    th { background: #f3f4f6; }
+    tr:nth-child(even) { background: #f9fafb; }
+    a { color: #2563eb; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>Agency Dashboard</h1>
+    <p>Ова е моменталната работа на агенцијата: lead-ови, продажба, веб-страници и испорака.</p>
+  </section>
+  <section class="grid">
+    <div class="card"><h3>Total clients</h3><p>8</p></div>
+    <div class="card"><h3>New leads</h3><p>0</p></div>
+    <div class="card"><h3>Emailed</h3><p>0</p></div>
+    <div class="card"><h3>Ordered</h3><p>0</p></div>
+    <div class="card"><h3>Built</h3><p>0</p></div>
+    <div class="card"><h3>Invoiced</h3><p>0</p></div>
+    <div class="card"><h3>Paid</h3><p>8</p></div>
+  </section>
+  <section>
+    <h2>Client progress</h2>
+    <p>Преглед на статус по клиент. Кликни на <a href="status.html">Status report</a> за детален извештај.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Client</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Website</th>
+          <th>Invoice</th>
+          <th>Requirements</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr>
+  <td>1</td>
+  <td>Кафе Бар Мели</td>
+  <td>info@kafebarmeli.mk</td>
+  <td>paid</td>
+  <td>gh_pages_site/client_1/index.html</td>
+  <td>https://www.paypal.com/paypalme/YourBusiness/Кафе%20Бар%20Мели/350.00</td>
+  <td>A modern cafe website with menu, opening hours, photo gallery, and contact details.</td>
+  <td>Small café in town center without a modern website.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Сладкарница Свет</td>
+  <td>kontakt@sladkarhnicasvet.mk</td>
+  <td>paid</td>
+  <td>gh_pages_site/client_2/index.html</td>
+  <td>https://www.paypal.com/paypalme/YourBusiness/Сладкарница%20Свет/350.00</td>
+  <td>A dessert shop website with menu, order options, opening hours, location, and photos.</td>
+  <td>Dessert shop that needs online menu presentation.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Fit Zone</td>
+  <td>hello@fitzone.mk</td>
+  <td>paid</td>
+  <td>gh_pages_site/client_3/index.html</td>
+  <td>https://www.paypal.com/paypalme/YourBusiness/Fit%20Zone/350.00</td>
+  <td>A fitness landing page with memberships, trainer profiles, classes schedule, and contact call-to-action.</td>
+  <td>Local gym that wants a landing page for memberships.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>Енерџи Фит</td>
+  <td>info@energfit.mk</td>
+  <td>paid</td>
+  <td>gh_pages_site/client_4/index.html</td>
+  <td>https://www.paypal.com/paypalme/YourBusiness/Енерџи%20Фит/350.00</td>
+  <td>A personal trainer website with services, training packages, testimonials, and contact form.</td>
+  <td>Personal trainer service with no website.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Салон Бјути</td>
+  <td>salonbeauty@mk</td>
+  <td>paid</td>
+  <td>gh_pages_site/client_5/index.html</td>
+  <td>https://www.paypal.com/paypalme/YourBusiness/Салон%20Бјути/350.00</td>
+  <td>A beauty salon website with services, price list, photo gallery, and booking CTA.</td>
+  <td>Hair and makeup studio without a booking page.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>Козметика Ева</td>
+  <td>eva@kozmetika.mk</td>
+  <td>paid</td>
+  <td>gh_pages_site/client_6/index.html</td>
+  <td>https://www.paypal.com/paypalme/YourBusiness/Козметика%20Ева/350.00</td>
+  <td>A cosmetics salon website with treatments, products, contact info, and appointment request.</td>
+  <td>Skin care salon needing a polished online presence.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>Ресторан Свежина</td>
+  <td>info@restoransvezina.mk</td>
+  <td>paid</td>
+  <td>gh_pages_site/client_7/index.html</td>
+  <td>https://www.paypal.com/paypalme/YourBusiness/Ресторан%20Свежина/350.00</td>
+  <td>cd "c:\xampp\htdocs\glavna strana"; & "C:\Program Files\Git\cmd\git.exe" status --short</td>
+  <td>Family restaurant without a modern website.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>Таверна Арка</td>
+  <td>contact@tavernaarka.mk</td>
+  <td>paid</td>
+  <td>gh_pages_site/client_8/index.html</td>
+  <td>https://www.paypal.com/paypalme/YourBusiness/Таверна%20Арка/350.00</td>
+  <td>Модерен кафе/рестораниски веб-сајт со менито, работно време, контакт, галерија и опција за резервации или нарачки.</td>
+  <td>Local tavern needing online menus and reservations.</td>
+</tr>
+      </tbody>
+    </table>
+  </section>
+</body>
+</html>
